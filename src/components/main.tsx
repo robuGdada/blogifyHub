@@ -1,35 +1,72 @@
-import { ScrollView, StyleSheet, Text, View } from "react-native";
+import { FlatList, ListRenderItem, StyleSheet, Text, View } from "react-native";
 import { Card } from "./card";
 import { Iblog, useBlogQuery } from "../hooks/queryHook/useBlogQuery";
+import { RootStackScreenProps } from "./navigator";
+import { useNavigation } from "@react-navigation/native";
+import { HeaderBlog } from "./headerBlog";
 
-export function Main() {
-  const { data: blogData, isLoading, isError: noData, error } = useBlogQuery();
-  console.log({ blogData });
-  console.log({ error });
+export function BlogData() {
+  const {
+    data: blogData,
+    isLoading,
+    isError: noData,
+    error,
+  } = useBlogQuery("");
+
+  const navigation =
+    useNavigation<RootStackScreenProps<"Main">["navigation"]>();
+
+  const renderBlogData: ListRenderItem<Iblog> = ({ item: blog }) => {
+    return (
+      <View style={styles.container}>
+        <Card
+          onPress={() =>
+            navigation.navigate("Details", {
+              id: blog.id,
+              title: blog.title,
+              description: blog.description,
+              thumbImageUrl: blog.thumbImageUrl,
+              category: blog?.category?.name || "",
+            })
+          }
+          key={blog.id}
+          title={blog?.title}
+          description={blog?.description}
+          image={blog?.thumbImageUrl as string}
+          category={blog?.category?.name}
+        />
+      </View>
+    );
+  };
   return (
-    <ScrollView contentContainerStyle={styles.container}>
+    <View>
       {isLoading ? (
         <Text style={{ color: "white" }}>isLoading....</Text>
-      ) : blogData ? (
-        blogData.map((blog: Iblog) => (
-          <Card
-            key={blog.id}
-            title={blog.title}
-            description={blog.description}
-            image={blog.thumbImageUrl as string}
-            category={blog.category.name}
-          />
-        ))
       ) : noData ? (
         <Text
           style={{ color: "white", justifyContent: "center", fontSize: 18 }}
         >
           {`error sir ${error.message}`}
         </Text>
+      ) : blogData ? (
+        <FlatList
+          data={blogData}
+          renderItem={renderBlogData}
+          ListHeaderComponent={<HeaderBlog />}
+          keyExtractor={(blog: Iblog) => blog.id.toString()}
+        />
       ) : (
         ""
       )}
-    </ScrollView>
+    </View>
+  );
+}
+
+export function Main() {
+  return (
+    <View style={styles.container}>
+      <BlogData />
+    </View>
   );
 }
 
@@ -38,6 +75,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: "#141624",
+    flexDirection: "column",
     paddingTop: 10,
     gap: 10,
   },
