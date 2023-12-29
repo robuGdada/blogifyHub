@@ -1,15 +1,13 @@
-import { SafeAreaView, StyleSheet, Text, View } from "react-native";
-import { Main } from "./src/components/main";
-import { Header } from "./src/components/header";
+import { SafeAreaView, StyleSheet } from "react-native";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { Navigator } from "./src/components/navigator";
 
 const queryClient = new QueryClient();
 export default function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <SafeAreaView style={styles.container}>
-        <Header />
-        <Main />
+        <Navigator />
       </SafeAreaView>
     </QueryClientProvider>
   );
