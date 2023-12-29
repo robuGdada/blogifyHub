@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
+import RenderHTML from "react-native-render-html";
 
 interface CardProps {
   image: string;
@@ -27,21 +28,35 @@ export function Card({
   onPress,
 }: CardProps) {
   return (
-    <Pressable style={styles.container}>
+    <Pressable style={styles.container} onPress={onPress}>
       <View style={styles.cardContainer}>
         <View style={styles.category}>
-          <Text style={{ color: "white", fontSize: 16 }}>b/{user}</Text>
-          <TouchableOpacity onPress={onPress}>
-            <Text style={{ color: "white", fontSize: 16 }}>{category}</Text>
+          <Text style={{ color: "white", fontSize: 18 }}>b/username{user}</Text>
+          <TouchableOpacity
+            onPress={onPress}
+            style={{
+              width: 100,
+              borderWidth: 1,
+              borderColor: "#444",
+              borderRadius: 5,
+            }}
+          >
+            <Text style={{ color: "white", fontSize: 16, textAlign: "center" }}>
+              {category}
+            </Text>
           </TouchableOpacity>
         </View>
         <Text style={{ color: "white" }}>...</Text>
       </View>
-      <View style={styles.cardContent}>
+      <View>
         <Text style={{ color: "white", fontSize: 18 }}>{title}</Text>
-        <Text style={{ color: "white", paddingBottom: 10, fontSize: 15 }}>
-          {description}
-        </Text>
+
+        <RenderHTML
+          source={{ html: `${description}` }}
+          baseStyle={{ color: "#888", fontSize: 16 }}
+          contentWidth={400}
+        />
+
         <Image style={styles.image} source={{ uri: `${image}` }} />
         <View style={styles.voteSection}>
           <TouchableOpacity>
@@ -73,9 +88,9 @@ const styles = StyleSheet.create({
     padding: 5,
     width: windowWidth,
     borderWidth: 1,
-    gap: 10,
+    gap: 15,
     borderColor: "#272727",
-    paddingBottom: 12,
+    paddingBottom: 10,
   },
   cardContainer: {
     flexDirection: "row",
@@ -86,7 +101,6 @@ const styles = StyleSheet.create({
     paddingRight: 5,
   },
 
-  cardContent: { gap: 4 },
   image: {
     height: 300,
     width: 390,
@@ -100,6 +114,6 @@ const styles = StyleSheet.create({
   },
   category: {
     flexDirection: "row",
-    gap: 20,
+    gap: 10,
   },
 });
