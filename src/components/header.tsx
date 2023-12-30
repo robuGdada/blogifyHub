@@ -12,16 +12,11 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 
 const styles = StyleSheet.create({
-  container: {
-    backgroundColor: "#272727e6",
-  },
   anotherContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
   },
   textWrapper: {
-    backgroundColor: "#141624",
-    borderRadius: 5,
     marginLeft: "3%",
     alignSelf: "center",
   },
@@ -29,7 +24,7 @@ const styles = StyleSheet.create({
     color: "white",
     fontWeight: "bold",
     padding: "2%",
-    fontSize: 16,
+    fontSize: 18,
   },
   box: {
     paddingLeft: "2%",
@@ -38,6 +33,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-evenly",
     alignItems: "center",
+    marginBottom: 10,
   },
   queryContainer: {
     backgroundColor: "#888",
@@ -68,7 +64,7 @@ export function Header() {
   }
 
   return (
-    <SafeAreaView style={styles.container} edges={["top"]}>
+    <View>
       {showSearchBar ? (
         <View style={styles.SearchContainer}>
           <View style={styles.queryContainer}>
@@ -118,6 +114,6 @@ export function Header() {
           </TouchableOpacity>
         </View>
       )}
-    </SafeAreaView>
+    </View>
   );
 }
