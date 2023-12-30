@@ -5,25 +5,31 @@ import RenderHTML from "react-native-render-html";
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#0F0F0F",
-  },
-  video: {
-    width: 400,
-    height: 160,
-    alignSelf: "center",
-    borderRadius: 5,
+    backgroundColor: "#272727e6",
   },
   box: {
     paddingTop: 20,
-    paddingLeft: 30,
+    paddingLeft: 15,
     paddingRight: 30,
+    gap: 10,
   },
   text: {
     color: "white",
     fontWeight: "bold",
     fontSize: 20,
     paddingTop: 10,
-    paddingLeft: 20,
+    paddingBottom: 5,
+  },
+  category: {
+    color: "white",
+    fontSize: 18,
+    borderWidth: 1,
+    borderColor: "#888",
+    backgroundColor: "#888",
+    width: 120,
+    textAlign: "center",
+    marginBottom: 15,
+    marginLeft: 15,
   },
   desc: {
     color: "#667",
@@ -54,9 +60,8 @@ function Details({ route }: RootStackScreenProps<"Details">) {
     <ScrollView style={styles.container} key={route.params.id}>
       <View style={styles.box}>
         <Text style={styles.text}>{route.params.title}</Text>
-
-        <Text style={styles.text}>{route?.params?.category?.name}</Text>
       </View>
+      <Text style={styles.category}>{route?.params?.category?.name}</Text>
       <Image style={styles.image} source={images} resizeMode="cover" />
       <RenderHTML
         source={{ html: route.params.description }}

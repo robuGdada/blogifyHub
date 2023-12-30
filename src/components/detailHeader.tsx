@@ -1,20 +1,14 @@
-import React from "react";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useNavigation } from "@react-navigation/native";
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#0F0F0F",
     justifyContent: "space-between",
     flexDirection: "row",
+    paddingBottom: 10,
   },
-  textWrapper: {
-    backgroundColor: "rgb(245,197,24)",
-    borderRadius: 5,
-    marginLeft: "3%",
-    alignSelf: "center",
-  },
+
   text: {
     color: "black",
     fontWeight: "bold",
@@ -30,20 +24,20 @@ const styles = StyleSheet.create({
     marginRight: "5%",
     alignSelf: "center",
     borderRadius: 4,
-    tintColor: "rgb(245,197,24)",
+    tintColor: "#888",
   },
   detailBox: {
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
   },
-  detailText: { color: "rgb(245,197,24)", fontSize: 16 },
+  detailText: { color: "#888", fontSize: 16 },
 });
 
 export function DetailHeader() {
   const navigation = useNavigation();
   return (
-    <SafeAreaView style={styles.container} edges={["top"]}>
+    <View style={styles.container}>
       <TouchableOpacity style={styles.detailBox} onPress={navigation.goBack}>
         <Image
           source={require("../../assets/backCaret.png")}
@@ -51,6 +45,6 @@ export function DetailHeader() {
         />
         <Text style={styles.detailText}>Home</Text>
       </TouchableOpacity>
-    </SafeAreaView>
+    </View>
   );
 }
