@@ -15,8 +15,8 @@ const useSignUpHook = ({
   onSuccess,
   onError,
 }: {
-  onSuccess: any;
-  onError: any;
+  onSuccess?: any;
+  onError?: any;
 }) => {
   return useMutation({
     mutationFn: createUser,

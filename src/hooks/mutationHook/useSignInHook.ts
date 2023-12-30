@@ -29,8 +29,8 @@ const useSignInMutation = ({
   onSuccess,
   onError,
 }: {
-  onSuccess: (res: any) => {};
-  onError: (res: any) => void;
+  onSuccess?: any;
+  onError?: any;
 }) => {
   return useMutation({
     mutationFn: signin,
