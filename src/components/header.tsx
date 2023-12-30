@@ -9,7 +9,9 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { modalStore } from "../../store/modalStore";
+import { useNavigation } from "@react-navigation/native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const styles = StyleSheet.create({
   anotherContainer: {
@@ -52,7 +54,7 @@ const styles = StyleSheet.create({
 
 export function Header() {
   const [showSearchBar, setShowSearchBar] = useState(false);
-
+  const navigation = useNavigation();
   function onPressSearchBar() {
     setShowSearchBar(!showSearchBar);
   }
@@ -61,6 +63,15 @@ export function Header() {
   }
   function onPressClear() {
     Keyboard.dismiss();
+  }
+  function handleLogout() {
+    try {
+      modalStore.setLogOut();
+      AsyncStorage.removeItem("jwtToken");
+      navigation.navigate("signIn");
+    } catch (e) {
+      console.log(e);
+    }
   }
 
   return (
@@ -99,19 +110,38 @@ export function Header() {
               <Text style={styles.text}>BlogifyHub</Text>
             </Pressable>
           </View>
-          <TouchableOpacity onPress={onPressSearchBar}>
-            <Image
-              source={require("../../assets/search.png")}
+          <View style={{ flexDirection: "row", alignItems: "center" }}>
+            <TouchableOpacity onPress={onPressSearchBar}>
+              <Image
+                source={require("../../assets/search.png")}
+                style={{
+                  height: 35,
+                  width: 40,
+                  marginRight: "5%",
+                  alignSelf: "center",
+                  borderRadius: 4,
+                  tintColor: "#8888",
+                }}
+              />
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={handleLogout}
               style={{
-                height: 35,
-                width: 40,
-                marginRight: "5%",
-                alignSelf: "center",
-                borderRadius: 4,
-                tintColor: "#8888",
+                backgroundColor: "#141624",
+                padding: 10,
+                borderRadius: 5,
+                marginBottom: 2,
               }}
-            />
-          </TouchableOpacity>
+            >
+              <Text
+                style={{
+                  color: "#888",
+                }}
+              >
+                Logout
+              </Text>
+            </TouchableOpacity>
+          </View>
         </View>
       )}
     </View>
