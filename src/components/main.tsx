@@ -26,7 +26,8 @@ export function BlogData() {
               title: blog.title,
               description: blog.description,
               thumbImageUrl: blog.thumbImageUrl,
-              category: blog?.category?.name || "",
+              category: blog?.category,
+              user: blog?.user.username,
             })
           }
           key={blog.id}
@@ -34,6 +35,7 @@ export function BlogData() {
           description={blog?.description}
           image={blog?.thumbImageUrl as string}
           category={blog?.category?.name}
+          user={blog?.user.username}
         />
       </View>
     );
