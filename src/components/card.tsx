@@ -31,7 +31,7 @@ export function Card({
     <Pressable style={styles.container} onPress={onPress}>
       <View style={styles.cardContainer}>
         <View style={styles.category}>
-          <Text style={{ color: "white", fontSize: 18 }}>b/username{user}</Text>
+          <Text style={{ color: "white", fontSize: 18 }}>bH/{user}</Text>
           <TouchableOpacity
             onPress={onPress}
             style={{
