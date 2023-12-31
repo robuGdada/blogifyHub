@@ -2,6 +2,8 @@ import { proxy } from "valtio";
 
 interface IModalStore {
   loggedIn: boolean;
+  token: string;
+  setToken: (token: string) => void;
   setLoggedIn: () => void;
 
   setLogOut: () => void;
@@ -19,6 +21,10 @@ interface IModalStore {
   };
 }
 export const modalStore = proxy<IModalStore>({
+  token: "",
+  setToken(jwtToken) {
+    this.token = jwtToken;
+  },
   loggedIn: false,
   setLoggedIn() {
     this.loggedIn = true;
