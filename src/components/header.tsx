@@ -67,7 +67,7 @@ export function Header() {
   function handleLogout() {
     try {
       modalStore.setLogOut();
-      AsyncStorage.removeItem("jwtToken");
+      modalStore.setToken("");
       navigation.navigate("signIn");
     } catch (e) {
       console.log(e);
