@@ -25,6 +25,7 @@ const SignInForm = () => {
           navigation.navigate("Main");
           modalStore.setLoggedIn();
           modalStore.signInModal.setOpen(false);
+          modalStore.setToken(res.token);
         }
       } catch (E) {
         console.log(E);

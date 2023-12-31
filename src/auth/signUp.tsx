@@ -25,6 +25,7 @@ const SignUpForm = () => {
           AsyncStorage.setItem("jwtToken", res.token);
           navigation.navigate("Main");
           modalStore.setLoggedIn();
+          modalStore.setToken(res.token);
         }
       } catch (E) {
         console.log(E);
