@@ -1,4 +1,11 @@
-import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import {
+  Image,
+  Platform,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useNavigation } from "@react-navigation/native";
 
@@ -35,9 +42,14 @@ const styles = StyleSheet.create({
 });
 
 export function DetailHeader() {
+  return (
+    <>{Platform.OS === "ios" ? <DetailIosHeader /> : <DetailAndriodHeader />}</>
+  );
+}
+function DetailAndriodHeader() {
   const navigation = useNavigation();
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <TouchableOpacity style={styles.detailBox} onPress={navigation.goBack}>
         <Image
           source={require("../../assets/backCaret.png")}
@@ -45,6 +57,21 @@ export function DetailHeader() {
         />
         <Text style={styles.detailText}>Home</Text>
       </TouchableOpacity>
-    </View>
+    </SafeAreaView>
+  );
+}
+
+function DetailIosHeader() {
+  const navigation = useNavigation();
+  return (
+    <SafeAreaView style={styles.container}>
+      <TouchableOpacity style={styles.detailBox} onPress={navigation.goBack}>
+        <Image
+          source={require("../../assets/backCaret.png")}
+          style={styles.image}
+        />
+        <Text style={styles.detailText}>Home</Text>
+      </TouchableOpacity>
+    </SafeAreaView>
   );
 }
