@@ -48,11 +48,15 @@ export function Card({
         </TouchableOpacity>
       </View>
       <View>
-        <Text style={{ color: "white", fontSize: 18 }}>{title}</Text>
-
+        <Text
+          style={{ color: "white", fontSize: 18, lineHeight: 22 }}
+          numberOfLines={2}
+        >
+          {title}
+        </Text>
         <RenderHTML
           source={{ html: `${description}` }}
-          baseStyle={{ color: "#888", fontSize: 16 }}
+          baseStyle={{ color: "#888", fontSize: 16, marginBottom: 5 }}
           contentWidth={400}
         />
 
@@ -87,7 +91,7 @@ const styles = StyleSheet.create({
     padding: 5,
     width: windowWidth,
     borderWidth: 1,
-    gap: 15,
+    gap: 5,
     borderColor: "#272727",
     paddingBottom: 10,
   },
