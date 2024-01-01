@@ -22,7 +22,6 @@ const SignInForm = () => {
       try {
         if (res.token) {
           AsyncStorage.setItem("jwtToken", res.token);
-          navigation.navigate("Main");
           modalStore.setLoggedIn();
           modalStore.signInModal.setOpen(false);
           modalStore.setToken(res.token);
