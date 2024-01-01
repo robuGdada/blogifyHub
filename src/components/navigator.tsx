@@ -15,6 +15,9 @@ import { Details } from "./detail";
 import { DetailHeader } from "./detailHeader";
 import { SignInForm } from "../auth/signIn";
 import { SignUpForm } from "../auth/signUp";
+import { useSnapshot } from "valtio";
+import { modalStore } from "../../store/modalStore";
+import { useEffect, useState } from "react";
 
 export type RootStackParamList = {
   Main: NavigatorScreenParams<HomeTabParamList>;
@@ -46,32 +49,49 @@ declare global {
 const Stack = createNativeStackNavigator();
 
 export function Navigator() {
+  const { token } = useSnapshot(modalStore);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  useEffect(() => {
+    if (token) {
+      setIsAuthenticated(true);
+    }
+  }, [token]);
+
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen
-          name="signIn"
-          options={{ headerShown: false }}
-          component={SignInForm}
-        />
+        {isAuthenticated ? (
+          <>
+            <Stack.Screen
+              name="Main"
+              component={Main}
+              options={{ header: () => <Header /> }}
+            />
+            <Stack.Screen
+              name="Details"
+              component={Details}
+              options={{ header: () => <DetailHeader /> }}
+            />
+          </>
+        ) : (
+          <>
+            <Stack.Screen
+              name="signIn"
+              options={{
+                headerShown: false,
+              }}
+              component={SignInForm}
+            />
 
-        <Stack.Screen
-          name="signUp"
-          component={SignUpForm}
-          options={{
-            headerShown: false,
-          }}
-        />
-        <Stack.Screen
-          name="Main"
-          component={Main}
-          options={{ header: () => <Header /> }}
-        />
-        <Stack.Screen
-          name="Details"
-          component={Details}
-          options={{ header: () => <DetailHeader /> }}
-        />
+            <Stack.Screen
+              name="signUp"
+              component={SignUpForm}
+              options={{
+                headerShown: false,
+              }}
+            />
+          </>
+        )}
       </Stack.Navigator>
     </NavigationContainer>
   );
