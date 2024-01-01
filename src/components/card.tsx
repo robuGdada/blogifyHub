@@ -31,22 +31,21 @@ export function Card({
     <Pressable style={styles.container} onPress={onPress}>
       <View style={styles.cardContainer}>
         <View style={styles.category}>
-          <Text style={{ color: "white", fontSize: 18 }}>bH/{user}</Text>
-          <TouchableOpacity
-            onPress={onPress}
-            style={{
-              width: 100,
-              borderWidth: 1,
-              borderColor: "#444",
-              borderRadius: 5,
-            }}
-          >
-            <Text style={{ color: "white", fontSize: 16, textAlign: "center" }}>
-              {category}
-            </Text>
-          </TouchableOpacity>
+          <Text style={{ color: "#777", fontSize: 18 }}>bH/{user}</Text>
         </View>
-        <Text style={{ color: "white" }}>...</Text>
+        <TouchableOpacity
+          onPress={onPress}
+          style={{
+            width: 100,
+            borderWidth: 1,
+            borderColor: "#444",
+            borderRadius: 5,
+          }}
+        >
+          <Text style={{ color: "white", fontSize: 16, textAlign: "center" }}>
+            {category}
+          </Text>
+        </TouchableOpacity>
       </View>
       <View>
         <Text style={{ color: "white", fontSize: 18 }}>{title}</Text>
