@@ -17,13 +17,14 @@ import { SignInForm } from "../auth/signIn";
 import { SignUpForm } from "../auth/signUp";
 import { useSnapshot } from "valtio";
 import { modalStore } from "../../store/modalStore";
-import { useEffect, useState } from "react";
+import { OtpVerifcation } from "../auth/otpverification";
 
 export type RootStackParamList = {
   Main: NavigatorScreenParams<HomeTabParamList>;
   Details: Iblog;
   signIn: undefined;
   signUp: undefined;
+  otpVerify: { email: string };
 };
 
 export type HomeTabParamList = {
@@ -50,13 +51,8 @@ const Stack = createNativeStackNavigator();
 
 export function Navigator() {
   const { token } = useSnapshot(modalStore);
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  useEffect(() => {
-    if (token) {
-      setIsAuthenticated(true);
-    }
-  }, [token]);
 
+  const isAuthenticated = !!token;
   return (
     <NavigationContainer>
       <Stack.Navigator>
@@ -86,6 +82,13 @@ export function Navigator() {
             <Stack.Screen
               name="signUp"
               component={SignUpForm}
+              options={{
+                headerShown: false,
+              }}
+            />
+            <Stack.Screen
+              name="otpVerify"
+              component={OtpVerifcation}
               options={{
                 headerShown: false,
               }}
