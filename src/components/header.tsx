@@ -12,7 +12,6 @@ import {
 } from "react-native";
 import { modalStore } from "../../store/modalStore";
 import { useNavigation } from "@react-navigation/native";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useSnapshot } from "valtio";
 
@@ -71,7 +70,7 @@ function Andriod() {
     modalStore.setLogOut();
     modalStore.setToken("");
   }
-  console.log({ token });
+
   return (
     <SafeAreaView>
       {showSearchBar ? (
@@ -158,12 +157,8 @@ function Ios() {
     Keyboard.dismiss();
   }
   function handleLogout() {
-    try {
-      modalStore.setLogOut();
-      modalStore.setToken("");
-    } catch (e) {
-      console.log(e);
-    }
+    modalStore.setLogOut();
+    modalStore.setToken("");
   }
   return (
     <View>
