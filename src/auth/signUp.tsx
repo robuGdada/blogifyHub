@@ -10,9 +10,12 @@ import { useNavigation } from "@react-navigation/native";
 import { useSignUpHook } from "../hooks/mutationHook/useSignUpHook";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { modalStore } from "../../store/modalStore";
+import { RootStackParamList } from "../components/navigator";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
 const SignUpForm = () => {
-  const navigation = useNavigation();
+  const navigation =
+    useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -24,7 +27,6 @@ const SignUpForm = () => {
         if (res.token) {
           AsyncStorage.setItem("jwtToken", res.token);
           modalStore.setLoggedIn();
-          modalStore.setToken(res.token);
         }
       } catch (E) {
         console.log(E);
@@ -38,6 +40,7 @@ const SignUpForm = () => {
   const handleSignUp = () => {
     console.log("Signing up with:", username, email, password);
     mutate({ username, email, password });
+    navigation.navigate("otpVerify", { email });
   };
 
   const handleBackToSignIn = () => {
