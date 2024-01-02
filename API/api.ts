@@ -1,7 +1,12 @@
 import axios, { AxiosError, AxiosResponse } from "axios";
+import { Platform } from "react-native";
 
 export const API = axios.create({
   baseURL: "http://192.168.100.118:3007",
+  headers: {
+    "client-source": "mobile",
+    platform: Platform.OS,
+  },
 });
 
 API.interceptors.request.use(
