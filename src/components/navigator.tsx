@@ -15,9 +15,8 @@ import { Details } from "./detail";
 import { DetailHeader } from "./detailHeader";
 import { SignInForm } from "../auth/signIn";
 import { SignUpForm } from "../auth/signUp";
-import { useSnapshot } from "valtio";
-import { modalStore } from "../../store/modalStore";
 import { OtpVerifcation } from "../auth/otpVerification";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export type RootStackParamList = {
   Main: NavigatorScreenParams<HomeTabParamList>;
@@ -50,7 +49,7 @@ declare global {
 const Stack = createNativeStackNavigator();
 
 export function Navigator() {
-  const { token } = useSnapshot(modalStore);
+  const token = AsyncStorage.getItem("jwtToken");
 
   const isAuthenticated = !!token;
   return (
