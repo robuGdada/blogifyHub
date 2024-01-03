@@ -4,6 +4,7 @@ import { useState } from "react";
 import { RouteProp, useNavigation, useRoute } from "@react-navigation/native";
 import { modalStore } from "../../store/modalStore";
 import { RootStackParamList } from "../components/navigator";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const styles = StyleSheet.create({
   container: {
@@ -36,6 +37,7 @@ export const OtpVerifcation = () => {
   const { mutate } = useVerification({
     onSuccess: async () => {
       console.log({ token, email });
+      AsyncStorage.setItem("jwtToken", token);
       modalStore.setToken(token);
     },
   });
