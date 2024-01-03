@@ -1,3 +1,4 @@
+import { useNavigation } from "@react-navigation/native";
 import {
   Dimensions,
   Image,
@@ -28,8 +29,12 @@ const styles = StyleSheet.create({
 });
 
 export function HeaderBlog() {
+  const navigation = useNavigation();
   return (
-    <Pressable style={styles.container}>
+    <Pressable
+      style={styles.container}
+      onPress={() => navigation.navigate("createblog")}
+    >
       <View style={{ flexDirection: "row", gap: 20 }}>
         <Image
           source={require("../../assets/dummyImage.jpg")}
