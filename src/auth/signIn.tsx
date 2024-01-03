@@ -6,6 +6,7 @@ import {
   TextInput,
   TouchableOpacity,
   StyleSheet,
+  Keyboard,
 } from "react-native";
 import { useSignInMutation } from "../hooks/mutationHook/useSignInHook";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -15,13 +16,13 @@ const SignInForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigation = useNavigation();
-  const [errorMessage, setErrorMessage] = useState("");
 
   const { mutate } = useSignInMutation({
     onSuccess: async (res: { token: string }) => {
       try {
         if (res.token) {
           AsyncStorage.setItem("jwtToken", res.token);
+
           modalStore.setLoggedIn();
           modalStore.signInModal.setOpen(false);
           modalStore.setToken(res.token);
@@ -57,6 +58,7 @@ const SignInForm = () => {
   const handleSignUp = () => {
     console.log("Navigate to sign-up screen or perform sign-up");
     navigation.navigate("signUp");
+    Keyboard.dismiss();
   };
 
   const handleForgotPassword = () => {
