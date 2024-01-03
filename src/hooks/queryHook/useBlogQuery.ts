@@ -1,7 +1,7 @@
-import { QueryFunctionContext, useQuery } from "@tanstack/react-query";
+import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import { API } from "../../../API/api";
 
-export interface Iblog {
+export type Iblog = {
   id: string;
   title: string;
   description: string;
@@ -11,17 +11,18 @@ export interface Iblog {
   thumbImageUrl?: string;
   createdAt: string;
   slug: string;
-}
+};
 
-const fetchBlogs = async (queryVal?: string) => {
+const fetchBlogs = async (queryVal: string, pageParam: number) => {
   const res = await API.get(`/blogs`, {
     params: {
+      page: pageParam,
       pageSize: 10,
       q: queryVal || "",
     },
   });
 
-  return res.data;
+  return res.data as Iblog[];
 };
 
 const fetchOneBlog = async (slug: string) => {
@@ -30,9 +31,15 @@ const fetchOneBlog = async (slug: string) => {
 };
 
 function useBlogQuery(queryVal: string) {
-  return useQuery({
-    queryKey: ["blogsQueryKey", queryVal],
-    queryFn: () => fetchBlogs(queryVal),
+  return useInfiniteQuery({
+    queryKey: ["Sdf"],
+    queryFn: ({ pageParam }) => fetchBlogs(queryVal, pageParam),
+    initialPageParam: 1,
+    getNextPageParam: (lastPage, _, lastPageParam) => {
+      if (lastPage?.length > 0) {
+        return +lastPageParam + 1;
+      }
+    },
   });
 }
 
