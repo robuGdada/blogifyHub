@@ -168,6 +168,7 @@ function Andriod() {
 }
 function Ios() {
   const [showSearchBar, setShowSearchBar] = useState(false);
+
   function onPressSearchBar() {
     setShowSearchBar(!showSearchBar);
   }
