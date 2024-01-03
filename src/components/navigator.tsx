@@ -17,14 +17,14 @@ import { SignInForm } from "../auth/signIn";
 import { SignUpForm } from "../auth/signUp";
 import { useSnapshot } from "valtio";
 import { modalStore } from "../../store/modalStore";
-import { OtpVerifcation } from "../auth/otpverification";
+import { OtpVerifcation } from "../auth/otpVerification";
 
 export type RootStackParamList = {
   Main: NavigatorScreenParams<HomeTabParamList>;
   Details: Iblog;
   signIn: undefined;
   signUp: undefined;
-  otpVerify: { email: string };
+  otpVerify: { email: string; token: string };
 };
 
 export type HomeTabParamList = {
