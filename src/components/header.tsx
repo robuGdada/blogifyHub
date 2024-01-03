@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import {
+  Alert,
   Image,
   Keyboard,
   Platform,
@@ -53,6 +54,31 @@ const styles = StyleSheet.create({
     width: "95%",
   },
 });
+
+const showLogout = () =>
+  Alert.alert(
+    "Logout",
+    "Are you sure you want to logout?",
+    [
+      {
+        text: "Cancel",
+        onPress: () => {},
+        style: "cancel",
+      },
+      {
+        text: "Logout",
+        onPress: () => {
+          modalStore.setLogOut();
+          modalStore.setToken("");
+        },
+        style: "destructive",
+      },
+    ],
+    {
+      cancelable: true,
+    }
+  );
+
 function Andriod() {
   const [showSearchBar, setShowSearchBar] = useState(false);
   const navigation = useNavigation();
@@ -65,10 +91,6 @@ function Andriod() {
   }
   function onPressClear() {
     Keyboard.dismiss();
-  }
-  function handleLogout() {
-    modalStore.setLogOut();
-    modalStore.setToken("");
   }
 
   return (
@@ -122,7 +144,7 @@ function Andriod() {
               />
             </TouchableOpacity>
             <TouchableOpacity
-              onPress={handleLogout}
+              onPress={showLogout}
               style={{
                 backgroundColor: "#141624",
                 padding: 10,
@@ -146,7 +168,6 @@ function Andriod() {
 }
 function Ios() {
   const [showSearchBar, setShowSearchBar] = useState(false);
-  const navigation = useNavigation();
   function onPressSearchBar() {
     setShowSearchBar(!showSearchBar);
   }
@@ -156,10 +177,7 @@ function Ios() {
   function onPressClear() {
     Keyboard.dismiss();
   }
-  function handleLogout() {
-    modalStore.setLogOut();
-    modalStore.setToken("");
-  }
+
   return (
     <View>
       {showSearchBar ? (
@@ -211,7 +229,7 @@ function Ios() {
               />
             </TouchableOpacity>
             <TouchableOpacity
-              onPress={handleLogout}
+              onPress={showLogout}
               style={{
                 backgroundColor: "#141624",
                 padding: 10,
