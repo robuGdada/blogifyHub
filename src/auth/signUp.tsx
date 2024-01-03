@@ -13,6 +13,10 @@ import { modalStore } from "../../store/modalStore";
 import { RootStackParamList } from "../components/navigator";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
+interface ISignUp {
+  token: string;
+  email: string;
+}
 const SignUpForm = () => {
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
@@ -20,13 +24,17 @@ const SignUpForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { mutate } = useSignUpHook({
-    onSuccess: async (res: { token: string }) => {
+    onSuccess: async (res: ISignUp) => {
       console.log(res.token);
 
       try {
         if (res.token) {
           AsyncStorage.setItem("jwtToken", res.token);
           modalStore.setLoggedIn();
+          navigation.navigate("otpVerify", {
+            email: res.email,
+            token: res.token,
+          });
         }
       } catch (E) {
         console.log(E);
@@ -40,7 +48,6 @@ const SignUpForm = () => {
   const handleSignUp = () => {
     console.log("Signing up with:", username, email, password);
     mutate({ username, email, password });
-    navigation.navigate("otpVerify", { email });
   };
 
   const handleBackToSignIn = () => {
