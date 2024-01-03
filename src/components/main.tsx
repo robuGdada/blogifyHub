@@ -11,7 +11,10 @@ export function BlogData() {
     isLoading,
     isError: noData,
     error,
+    fetchNextPage,
   } = useBlogQuery("");
+
+  const blogFlatData = blogData?.pages?.flatMap((a) => a);
 
   const navigation =
     useNavigation<RootStackScreenProps<"Main">["navigation"]>();
@@ -52,8 +55,13 @@ export function BlogData() {
         </Text>
       ) : blogData ? (
         <FlatList
-          data={blogData}
+          data={blogFlatData}
           renderItem={renderBlogData}
+          onEndReached={() => {
+            console.log("end......");
+            fetchNextPage();
+          }}
+          onEndReachedThreshold={0.1}
           ListHeaderComponent={<HeaderBlog />}
           keyExtractor={(blog: Iblog) => blog.id.toString()}
         />
