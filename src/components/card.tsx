@@ -50,7 +50,7 @@ export function Card({
       <View>
         <Text
           style={{ color: "white", fontSize: 18, lineHeight: 22 }}
-          numberOfLines={2}
+          numberOfLines={1}
         >
           {title}
         </Text>
