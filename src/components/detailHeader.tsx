@@ -47,6 +47,7 @@ export function DetailHeader() {
 }
 function DetailAndriodHeader() {
   const navigation = useNavigation();
+
   return (
     <SafeAreaView style={styles.container}>
       <TouchableOpacity style={styles.detailBox} onPress={navigation.goBack}>
