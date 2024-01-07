@@ -29,12 +29,8 @@ const styles = StyleSheet.create({
 });
 
 export function HeaderBlog() {
-  const navigation = useNavigation();
   return (
-    <Pressable
-      style={styles.container}
-      onPress={() => navigation.navigate("createblog")}
-    >
+    <Pressable style={styles.container}>
       <View style={{ flexDirection: "row", gap: 20 }}>
         <Image
           source={require("../../assets/dummyImage.jpg")}
