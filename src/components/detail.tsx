@@ -11,7 +11,7 @@ const styles = StyleSheet.create({
     paddingTop: 20,
     paddingLeft: 15,
     paddingRight: 30,
-    gap: 10,
+    gap: 9,
   },
   text: {
     color: "white",
